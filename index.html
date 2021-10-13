@@ -5,7 +5,47 @@
     <link rel="stylesheet" href="scoreboard.css" />
   </head>
   <body>
-    <!-- FILL IN YOUR SCORE BOARD HTML CODE HERE -->
+    <div id="scoreboard">
+      <div><img src="images/ups.png" alt="UPS LOGO"></div>
+
+      <table>
+          <caption id="score_title">GRIZZ'S FIELD</caption>
+          <tr id="score_num">
+              <th></th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>R</th>
+          </tr>
+          <tr>
+              <td class="grid score_header">AWAY</td>
+              <td class="grid first_away" id="first_a">0</td>
+              <td class="grid" id="second_away">0</td>
+              <td class="grid" id="third_away">0</td>
+              <td class="grid" id="fourth_away">0</td>
+              <td class="grid" id="fifth_away">0</td>
+              <td class="grid" id="sixth_away">0</td>
+              <td class="grid" id="seventh_away">0</td>
+              <td class="grid run_col" id="away_runs">0</td>
+          </tr>
+          <tr>
+
+              <td class="grid score_header">HOME</td>
+              <td class="grid first_home" id="first_home">0</td>
+              <td class="grid" id="second_home">0</td>
+              <td class="grid" id="third_home">0</td>
+              <td class="grid" id="fourth_home">0</td>
+              <td class="grid" id="fifth_home">0</td>
+              <td class="grid" id="sixth_home">0</td>
+              <td class="grid" id="seventh_home">0</td>
+              <td class="grid run_col" id="home_runs">0</td>
+          </tr>
+          </table>
+  </div>
  
     <script src="app.js"></script>
   </body>
