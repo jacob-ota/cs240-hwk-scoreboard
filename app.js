@@ -98,3 +98,56 @@ function home_subtractor(identifier) {
     });
 }
 
+//specify inning and who and utilize adders and subtractors
+//add code
+
+
+//songs and picture changes
+
+let pic = document.querySelector("img");
+//create audio for the three mp3's
+let buildup = new Audio("sounds/buildup.mp3");
+let charge1 = new Audio("sounds/charge1.mp3");
+let charge2 = new Audio("sounds/charge2.mp3");
+let music = document.querySelector("#charge");
+//on click play a random song and randomly display the megaphone image
+music.addEventListener("click", () => {
+    let rand = Math.floor(Math.random()*3) + 1;
+    let pic_rand = Math.random();
+    //random chance that a megaphone image replaces the ups logo
+    if(pic_rand < .5) {
+        pic.src = "images/megaphone.png";
+    }
+    //play random song, and replace ups logo back if megaphone is used
+    //looked into W3schools website and learned about the .onended()
+    if(rand == 1) {
+        buildup.play();
+        buildup.onended = () => {
+            pic.src = "images/ups.png";
+        };
+    }
+    else if(rand == 2) {
+        charge1.play();
+        charge1.onended = () => {
+            pic.src = "images/ups.png";
+        };
+    }
+    else if(rand == 3) {
+        charge2.play();
+        charge2.onended = () => {
+            pic.src = "images/ups.png";
+        };
+    }
+});
+
+//create an audio for the chicken song
+let chicken = document.querySelector("#chicken");
+let chicken_song = new Audio("sounds/chickendance.mp3");
+chicken.addEventListener("click", () => {
+    pic.src = "images/sdchicken.jpg";
+    chicken_song.play();
+    //after song has played replace the chicken jpg with the ups logo
+    chicken_song.onended = () => {
+        pic.src = "images/ups.png";
+    };
+});
