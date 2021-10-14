@@ -25,7 +25,7 @@ let home_run_counter = 0;
  */
 function away_adder(identifier) {
     add_run.addEventListener("click", () => {
-        let inning = document.querySelector(identifier);
+        let inning = document.getElementById(identifier);
         let inningCounter = inning.innerHTML;
         //adjust inning and total runs
         inningCounter++;
@@ -44,7 +44,7 @@ function away_adder(identifier) {
  */
 function away_subtractor(identifier) {
     min_run.addEventListener("click", () => {
-        let inning = document.querySelector(identifier);
+        let inning = document.getElementById(identifier);
         let inningCounter = inning.innerHTML;
         //checks if inning runs are already at 0
         if(inning.innerHTML != 0) {
@@ -66,7 +66,7 @@ function away_subtractor(identifier) {
  */
 function home_adder(identifier) {
     add_run.addEventListener("click", () => {
-        let inning = document.querySelector(identifier);
+        let inning = document.getElementById(identifier);
         let inningCounter = inning.innerHTML;
         //adjust inning and total runs
         inningCounter++;
@@ -85,7 +85,7 @@ function home_adder(identifier) {
  */
 function home_subtractor(identifier) {
     min_run.addEventListener("click", () => {
-        let inning = document.querySelector(identifier);
+        let inning = document.getElementById(identifier);
         let inningCounter = inning.innerHTML;
         //checks if inning runs is at 0
         if(inning.innerHTML != 0) {
@@ -94,16 +94,33 @@ function home_subtractor(identifier) {
             inning.innerHTML = inningCounter;
             home_run_counter--;
             h_runs.innerHTML = home_run_counter;
-        };
-    });
+        }; 
+    });   
 }
 
 //specify inning and who and utilize adders and subtractors
-//add code
+let hitting = document.querySelector("#hitting");
+let inning = document.querySelector("#number");
+
+const grid_boxes = {};
+
+grid_boxes.first_away = document.querySelector("#first_a");
+grid_boxes.first_home = document.querySelector("#first_home");
+grid_boxes.second_away = document.querySelector("#second_away");
+grid_boxes.second_home = document.querySelector("#second_home");
+grid_boxes.third_away = document.querySelector("#third_away");
+grid_boxes.third_home = document.querySelector("#third_home");
+grid_boxes.fourth_away = document.querySelector("#fourth_away");
+grid_boxes.fourth_home = document.querySelector("#fourth_home");
+grid_boxes.fifth_away = document.querySelector("#fifth_away");
+grid_boxes.fifth_home = document.querySelector("#fifth_home");
+grid_boxes.sixth_away = document.querySelector("#sixth_away");
+grid_boxes.sixth_home = document.querySelector("#sixth_home");
+grid_boxes.seventh_away = document.querySelector("#seventh_away");
+grid_boxes.seventh_home = document.querySelector("#seventh_home");
 
 
 //songs and picture changes
-
 let pic = document.querySelector("img");
 //create audio for the three mp3's
 let buildup = new Audio("sounds/buildup.mp3");
@@ -113,9 +130,9 @@ let music = document.querySelector("#charge");
 //on click play a random song and randomly display the megaphone image
 music.addEventListener("click", () => {
     let rand = Math.floor(Math.random()*3) + 1;
-    let pic_rand = Math.random();
+    let pic_rand = Math.floor(Math.random()*10);
     //random chance that a megaphone image replaces the ups logo
-    if(pic_rand < .5) {
+    if(pic_rand < 5) {
         pic.src = "images/megaphone.png";
     }
     //play random song, and replace ups logo back if megaphone is used
