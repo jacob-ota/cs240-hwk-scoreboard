@@ -3,7 +3,7 @@
  * @author Jacob Ota
  */
 //add and minus for + / - buttons on scoreboard
-let add_run = document.querySelector("#add");
+let add_run = document.querySelector("#adder");
 let min_run = document.querySelector("#subtract");
 
 //node for the total run column boxes
@@ -13,90 +13,6 @@ let h_runs = document.querySelector("#home_runs");
 //a counter for both away and home run totals
 let away_run_counter = 0;
 let home_run_counter = 0;
-
-//run adder and subtractors
-
-/**
- * A function that adds runs to the away team by adding to the specific inning, 
- * identified by the param indentifier, and also counts up the total runs and 
- * displays them to the away team's total run column.
- * 
- * @param {*} identifier 
- */
-function away_adder(identifier) {
-    add_run.addEventListener("click", () => {
-        let inning = document.getElementById(identifier);
-        let inningCounter = inning.innerHTML;
-        //adjust inning and total runs
-        inningCounter++;
-        inning.innerHTML = inningCounter;
-        away_run_counter++;
-        a_runs.innerHTML = away_run_counter;
-    });
-}
-
-/**
- * A function that subtracts runs away from the away team at a specific inning, 
- * identified by the param indentifier, unless the run number in that inning is 
- * at 0, and it also adjusts the away team's total run column.
- * 
- * @param {*} identifier 
- */
-function away_subtractor(identifier) {
-    min_run.addEventListener("click", () => {
-        let inning = document.getElementById(identifier);
-        let inningCounter = inning.innerHTML;
-        //checks if inning runs are already at 0
-        if(inning.innerHTML != 0) {
-            //adjust inning and total runs
-            inningCounter--;
-            inning.innerHTML = inningCounter;
-            away_run_counter--;
-            a_runs.innerHTML = away_run_counter;
-        }
-    });
-}
-
-/**
- * A function that adds runs to the home team by adding to the specific inning, 
- * identified by the param indentifier, and also counts up the total runs and 
- * displays them to the home team's total run column.
- * 
- * @param {*} identifier 
- */
-function home_adder(identifier) {
-    add_run.addEventListener("click", () => {
-        let inning = document.getElementById(identifier);
-        let inningCounter = inning.innerHTML;
-        //adjust inning and total runs
-        inningCounter++;
-        inning.innerHTML = inningCounter;
-        home_run_counter++;
-        h_runs.innerHTML = home_run_counter;
-    });
-}
-
-/**
- * A function that subtracts runs away from the home team at a specific inning, 
- * identified by the param indentifier, unless the run number in that inning is 
- * at 0, and it also adjusts the home team's total run column.
- * 
- * @param {*} identifier 
- */
-function home_subtractor(identifier) {
-    min_run.addEventListener("click", () => {
-        let inning = document.getElementById(identifier);
-        let inningCounter = inning.innerHTML;
-        //checks if inning runs is at 0
-        if(inning.innerHTML != 0) {
-            //adjust inning and total runs
-            inningCounter--;
-            inning.innerHTML = inningCounter;
-            home_run_counter--;
-            h_runs.innerHTML = home_run_counter;
-        }; 
-    });   
-}
 
 //specify inning and who and utilize adders and subtractors
 let hitting = document.querySelector("#hitting");
@@ -119,6 +35,690 @@ grid_boxes.sixth_home = document.querySelector("#sixth_home");
 grid_boxes.seventh_away = document.querySelector("#seventh_away");
 grid_boxes.seventh_home = document.querySelector("#seventh_home");
 
+//implements adders and subtractors
+//first inning without changes to the control console
+if(inning.value == 1) {
+    add_run.addEventListener("click", first_away_adder, false);
+    min_run.addEventListener("click", first_away_subtractor, false);
+    hitting.addEventListener("change", () => {
+        if(hitting.value == "HOME") {
+            add_run.removeEventListener("click", first_away_adder, false);
+            min_run.removeEventListener("click", first_away_subtractor, false);
+            add_run.addEventListener("click", first_home_adder, false);
+            min_run.addEventListener("click", first_home_subtractor, false);
+        }
+        else if(hitting.value == "AWAY") {
+            add_run.removeEventListener("click", first_home_adder, false);
+            min_run.removeEventListener("click", first_home_subtractor, false);
+            add_run.addEventListener("click", first_away_adder, false);
+            min_run.addEventListener("click", first_away_subtractor, false);
+        };
+    });
+};
+
+inning.addEventListener("change", innings, false);
+inning.oninput = () => {
+    inning.removeEventListener("change", innings, false);
+    inning.addEventListener("change", innings, false);
+}
+/**
+ * A function that deals with the updates of the teams runs in the first inning
+ * 
+ * @param {*} identifier 
+ */
+ function innings() {
+    if(inning.value == 1) {
+        add_run.addEventListener("click", first_away_adder, false);
+        min_run.addEventListener("click", first_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", first_away_adder, false);
+                min_run.removeEventListener("click", first_away_subtractor, false);
+                add_run.addEventListener("click", first_home_adder, false);
+                min_run.addEventListener("click", first_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", first_home_adder, false);
+                min_run.removeEventListener("click", first_home_subtractor, false);
+                add_run.addEventListener("click", first_away_adder, false);
+                min_run.addEventListener("click", first_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 2) {
+        add_run.addEventListener("click", second_away_adder, false);
+        min_run.addEventListener("click", second_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", second_away_adder, false);
+                min_run.removeEventListener("click", second_away_subtractor, false);
+                add_run.addEventListener("click", second_home_adder, false);
+                min_run.addEventListener("click", second_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", second_home_adder, false);
+                min_run.removeEventListener("click", second_home_subtractor, false);
+                add_run.addEventListener("click", second_away_adder, false);
+                min_run.addEventListener("click", second_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 3) {
+        add_run.addEventListener("click", third_away_adder, false);
+        min_run.addEventListener("click", third_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", third_away_adder, false);
+                min_run.removeEventListener("click", third_away_subtractor, false);
+                add_run.addEventListener("click", third_home_adder, false);
+                min_run.addEventListener("click", third_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", third_home_adder, false);
+                min_run.removeEventListener("click", third_home_subtractor, false);
+                add_run.addEventListener("click", third_away_adder, false);
+                min_run.addEventListener("click", third_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 4) {
+        add_run.addEventListener("click", fourth_away_adder, false);
+        min_run.addEventListener("click", fourth_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", fourth_away_adder, false);
+                min_run.removeEventListener("click", fourth_away_subtractor, false);
+                add_run.addEventListener("click", fourth_home_adder, false);
+                min_run.addEventListener("click", fourth_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", fourth_home_adder, false);
+                min_run.removeEventListener("click", fourth_home_subtractor, false);
+                add_run.addEventListener("click", fourth_away_adder, false);
+                min_run.addEventListener("click", fourth_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 5) {
+        add_run.addEventListener("click", fifth_away_adder, false);
+        min_run.addEventListener("click", fifth_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", fifth_away_adder, false);
+                min_run.removeEventListener("click", fifth_away_subtractor, false);
+                add_run.addEventListener("click", fifth_home_adder, false);
+                min_run.addEventListener("click", fifth_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", fifth_home_adder, false);
+                min_run.removeEventListener("click", fifth_home_subtractor, false);
+                add_run.addEventListener("click", fifth_away_adder, false);
+                min_run.addEventListener("click", fifth_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 6) {
+        add_run.addEventListener("click", sixth_away_adder, false);
+        min_run.addEventListener("click", sixth_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", sixth_away_adder, false);
+                min_run.removeEventListener("click", sixth_away_subtractor, false);
+                add_run.addEventListener("click", sixth_home_adder, false);
+                min_run.addEventListener("click", sixth_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", sixth_home_adder, false);
+                min_run.removeEventListener("click", sixth_home_subtractor, false);
+                add_run.addEventListener("click", sixth_away_adder, false);
+                min_run.addEventListener("click", sixth_away_subtractor, false);
+            };
+        });
+    };
+    if(inning.value == 7) {
+        add_run.addEventListener("click", seventh_away_adder, false);
+        min_run.addEventListener("click", seventh_away_subtractor, false);
+        hitting.addEventListener("change", () => {
+            if(hitting.value == "HOME") {
+                add_run.removeEventListener("click", seventh_away_adder, false);
+                min_run.removeEventListener("click", seventh_away_subtractor, false);
+                    add_run.addEventListener("click", seventh_home_adder, false);
+                min_run.addEventListener("click", seventh_home_subtractor, false);
+            }
+            else if(hitting.value == "AWAY") {
+                add_run.removeEventListener("click", seventh_home_adder, false);
+                min_run.removeEventListener("click", seventh_home_subtractor, false);
+                add_run.addEventListener("click", seventh_away_adder, false);
+                min_run.addEventListener("click", seventh_away_subtractor, false);
+            };
+        });
+    };
+}
+
+
+//run adder and subtractors
+
+/**
+ * A function that adds runs to the away team's first inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function first_away_adder() {
+    let inning = document.getElementById(grid_boxes.first_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's first inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function first_home_adder() {
+    let inning = document.getElementById(grid_boxes.first_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's second inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function second_away_adder() {
+    let inning = document.getElementById(grid_boxes.second_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's second inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function second_home_adder() {
+    let inning = document.getElementById(grid_boxes.second_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's third inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function third_away_adder() {
+    let inning = document.getElementById(grid_boxes.third_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's third inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function third_home_adder() {
+    let inning = document.getElementById(grid_boxes.third_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's fourth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fourth_away_adder() {
+    let inning = document.getElementById(grid_boxes.fourth_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's fourth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function fourth_home_adder() {
+    let inning = document.getElementById(grid_boxes.fourth_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's fifth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fifth_away_adder() {
+    let inning = document.getElementById(grid_boxes.fifth_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's fifth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function fifth_home_adder() {
+    let inning = document.getElementById(grid_boxes.fifth_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's sixth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function sixth_away_adder() {
+    let inning = document.getElementById(grid_boxes.sixth_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's sixth inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function sixth_home_adder() {
+    let inning = document.getElementById(grid_boxes.sixth_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that adds runs to the away team's seventh inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function seventh_away_adder() {
+    let inning = document.getElementById(grid_boxes.seventh_away.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    away_run_counter++;
+    a_runs.innerHTML = away_run_counter;
+}
+
+/**
+ * A function that adds runs to the home team's seventh inning by adding to the specific inning, 
+ * identified by the param indentifier, and also counts up the total runs and 
+ * displays them to the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function seventh_home_adder() {
+    let inning = document.getElementById(grid_boxes.seventh_home.id);
+    let inningCounter = inning.innerHTML;
+    //adjust inning and total runs
+    inningCounter++;
+    inning.innerHTML = inningCounter;
+    home_run_counter++;
+    h_runs.innerHTML = home_run_counter;
+}
+
+/**
+ * A function that subtracts runs away from the away team at the first inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+function first_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.first_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+
+/**
+ * A function that subtracts runs away from the home team at the first inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function first_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.first_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the second inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function second_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.second_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+
+/**
+ * A function that subtracts runs away from the home team at the second inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function second_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.second_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the third inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function third_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.third_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+
+/**
+ * A function that subtracts runs away from the home team at the third inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function third_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.third_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the fourth inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fourth_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.fourth_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+
+/**
+ * A function that subtracts runs away from the home team at the fourth inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fourth_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.fourth_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the fifth inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fifth_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.fifth_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the home team at the fifth inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function fifth_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.fifth_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the sixth inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function sixth_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.sixth_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the home team at the seventh inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the home team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function sixth_home_subtractor() {
+    let inning = document.getElementById(grid_boxes.sixth_home.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        home_run_counter--;
+        h_runs.innerHTML = home_run_counter;
+    }
+}
+
+/**
+ * A function that subtracts runs away from the away team at the seventh inning, 
+ * identified by the param indentifier, unless the run number in that inning is 
+ * at 0, and it also adjusts the away team's total run column.
+ * 
+ * @param {*} identifier 
+ */
+ function seventh_away_subtractor() {
+    let inning = document.getElementById(grid_boxes.seventh_away.id);
+    let inningCounter = inning.innerHTML;
+    //checks if inning runs are already at 0
+    if(inning.innerHTML != 0) {
+        //adjust inning and total runs
+        inningCounter--;
+        inning.innerHTML = inningCounter;
+        away_run_counter--;
+        a_runs.innerHTML = away_run_counter;
+    }
+
+    /**
+    * A function that subtracts runs away from the home team at the seventh inning, 
+    * identified by the param indentifier, unless the run number in that inning is 
+    * at 0, and it also adjusts the home team's total run column.
+    * 
+    * @param {*} identifier 
+    */
+    function seventh_home_subtractor() {
+        let inning = document.getElementById(grid_boxes.seventh_home.id);
+        let inningCounter = inning.innerHTML;
+        //checks if inning runs are already at 0
+        if(inning.innerHTML != 0) {
+            //adjust inning and total runs
+            inningCounter--;
+            inning.innerHTML = inningCounter;
+            away_run_counter--;
+            a_runs.innerHTML = away_run_counter;
+        }
+    }
+}
 
 //songs and picture changes
 let pic = document.querySelector("img");
