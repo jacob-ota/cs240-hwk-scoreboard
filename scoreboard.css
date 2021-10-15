@@ -21,11 +21,13 @@ table {
 
 #score_num {
   color: white;
+  font-size: 12pt;
 }
 
 .grid {
   padding: 10px;
   border: 5px;
+  font-size: 12pt;
   font-weight: normal;
   border-color: black;
   border-style: solid;
@@ -92,6 +94,6 @@ select {
 
 button {
   font-size: 12pt;
-  font-family: "Courier New", Courier, monospace;
+  font-family: Courier, "Courier New", monospace;
   margin-left: 5px;
 }

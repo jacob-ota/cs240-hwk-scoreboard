@@ -724,8 +724,12 @@ music.addEventListener("click", () => {
     let rand = Math.floor(Math.random()*3) + 1;
     let pic_rand = Math.floor(Math.random()*10);
     //random chance that a megaphone image replaces the ups logo
-    if(pic_rand < 5) {
-        pic.src = "images/megaphone.png";
+    console.log(pic_rand)
+    if(pic_rand <= 3) {
+        pic.src = "images/sdchicken.jpg";
+    }
+    else if(pic_rand > 3 && pic_rand < 7) {
+        pic.src = "images/megaphone.png"
     }
     //play random song, and replace ups logo back if megaphone is used
     //looked into W3schools website and learned about the .onended()
