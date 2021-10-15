@@ -474,7 +474,6 @@ function first_away_subtractor() {
     }
 }
 
-
 /**
  * A function that subtracts runs away from the home team at the first inning, 
  * identified by the param indentifier, unless the run number in that inning is 
@@ -511,7 +510,6 @@ function second_away_subtractor() {
     }
 }
 
-
 /**
  * A function that subtracts runs away from the home team at the second inning, 
  * identified by the param indentifier, unless the run number in that inning is 
@@ -547,7 +545,6 @@ function third_away_subtractor() {
         a_runs.innerHTML = away_run_counter;
     }
 }
-
 
 /**
  * A function that subtracts runs away from the home team at the third inning, 
@@ -693,6 +690,7 @@ function seventh_away_subtractor() {
         a_runs.innerHTML = away_run_counter;
     }
 }
+
 /**
 * A function that subtracts runs away from the home team at the seventh inning, 
 * identified by the param indentifier, unless the run number in that inning is 
@@ -711,7 +709,6 @@ function seventh_home_subtractor() {
     }
 }
 
-
 //songs and picture changes
 let pic = document.querySelector("img");
 //create audio for the three mp3's
@@ -724,7 +721,6 @@ music.addEventListener("click", () => {
     let rand = Math.floor(Math.random()*3) + 1;
     let pic_rand = Math.floor(Math.random()*10);
     //random chance that a megaphone image replaces the ups logo
-    console.log(pic_rand)
     if(pic_rand <= 3) {
         pic.src = "images/sdchicken.jpg";
     }
